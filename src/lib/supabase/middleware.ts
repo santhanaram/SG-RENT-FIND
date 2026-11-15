@@ -1,10 +1,20 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 import { isAllowedEmail } from "@/lib/auth";
+import { missingEnv } from "@/lib/supabase/config";
 
 const PUBLIC_PATHS = ["/login", "/auth/callback"];
 
 export async function updateSession(request: NextRequest) {
+  // Without Supabase config the client throws on every request, so show a setup page instead.
+  if (missingEnv().length > 0) {
+    if (request.nextUrl.pathname === "/setup") return NextResponse.next({ request });
+    const url = request.nextUrl.clone();
+    url.pathname = "/setup";
+    url.search = "";
+    return NextResponse.redirect(url);
+  }
+
   let response = NextResponse.next({ request });
 
   const supabase = createServerClient(
