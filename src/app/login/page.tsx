@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Building2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -7,7 +8,8 @@ import { sendMagicLink } from "./actions";
 const errors: Record<string, string> = {
   not_allowed: "That account isn't allowed to use this app.",
   send_failed: "Couldn't send the sign-in link. Try again in a minute.",
-  callback_failed: "That sign-in link has expired or was already used.",
+  rate_limited: "Too many sign-in emails were requested. Wait a few minutes, then try again.",
+  callback_failed: "That sign-in link has expired, was already used, or was opened in a different browser. Request a new one.",
 };
 
 export default async function LoginPage({
@@ -31,9 +33,15 @@ export default async function LoginPage({
         </div>
 
         {sent ? (
-          <p className="rounded-lg bg-primary-tint p-3 text-sm">
-            If that email is allowed, a sign-in link is on its way. Check your inbox.
-          </p>
+          <div className="space-y-3">
+            <p className="rounded-lg bg-primary-tint p-3 text-sm">
+              If that email is allowed, a sign-in link is on its way. Check your inbox and spam folder, and open the
+              link in this same browser.
+            </p>
+            <Link href="/login" className="text-sm font-medium text-primary hover:underline">
+              Use a different email or resend
+            </Link>
+          </div>
         ) : (
           <form action={sendMagicLink} className="space-y-3">
             <label htmlFor="email" className="text-sm font-medium">

@@ -13,9 +13,9 @@ See [Plan.md](Plan.md) for the architecture, schema and milestones.
 ## Supabase setup
 
 1. Create a project in the Singapore region (`ap-southeast-1`).
-2. Apply the migration in `supabase/migrations/` (Supabase CLI: `supabase link` then `supabase db push`, or paste it into the SQL editor).
-3. Auth > Providers > Email: keep email enabled. Auth > Settings: turn **off** "Allow new users to sign up".
-4. Auth > Users: invite or add your own email (the same one as `ALLOWED_EMAIL`).
+2. Apply the migrations in `supabase/migrations/` (Supabase CLI: `supabase link` then `supabase db push`, or paste them into the SQL editor), then add your email: `insert into private.allowed_emails (email) values ('you@example.com');`
+3. Auth > Providers > Email: keep email enabled. Leave sign-ups on: a database trigger only lets emails in `private.allowed_emails` create an account, so your first magic-link login creates yours.
+4. No need to add the user by hand.
 5. Auth > URL Configuration: set the Site URL to your Vercel production URL and add `http://localhost:3000/auth/callback` and `https://<your-domain>/auth/callback` to the redirect URLs.
 
 ## Vercel setup
@@ -26,4 +26,4 @@ See [Plan.md](Plan.md) for the architecture, schema and milestones.
 
 ## Access model
 
-Only one account can use the app. Sign-ups are disabled in Supabase, the middleware signs out any user whose email isn't `ALLOWED_EMAIL`, and row-level security limits every table to its owner.
+Only one account can use the app. A database trigger blocks accounts for any email not in `private.allowed_emails`, the middleware signs out any user whose email isn't `ALLOWED_EMAIL`, and row-level security limits every table to its owner.
