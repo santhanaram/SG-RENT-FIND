@@ -1,0 +1,92 @@
+@import "tailwindcss";
+
+/*
+ * SG-Rent-Find design tokens, taken from the palette in the agent spec.
+ * Light mode first; dark values are defined so dark mode can be switched on later.
+ */
+:root {
+  --background: #f9f9fc;            /* neutral-98 */
+  --surface: #ffffff;
+  --foreground: #1a1c1e;            /* neutral-10 */
+  --muted-foreground: #5d5e61;      /* neutral-40 */
+  --border: #dde3ea;                /* neutral-variant-90 */
+
+  --navy: #1a2b3c;                  /* header navy from the spec */
+  --primary: #006492;               /* primary-40 */
+  --primary-hover: #004b6f;         /* primary-30 */
+  --primary-foreground: #ffffff;
+  --primary-soft: #cae6ff;          /* primary-90 */
+  --primary-tint: #f6f9ff;          /* primary-98 */
+
+  --secondary: #50606e;             /* secondary-40 */
+  --secondary-soft: #d3e5f5;        /* secondary-90 */
+
+  --verified: #1f7a4d;              /* forest green for Verified badges */
+  --verified-soft: #e3f4ea;
+  --estimated: #8a5a00;
+  --estimated-soft: #fff1d6;
+  --unverified-tint: #fff8e1;       /* row tint for unverified data */
+  --error: #ba1a1a;                 /* error-40 */
+  --error-soft: #ffdad6;            /* error-90 */
+
+  --radius: 0.75rem;
+}
+
+:root[data-theme="dark"] {
+  --background: #0f1113;
+  --surface: #1a1c1e;
+  --foreground: #e2e2e5;
+  --muted-foreground: #aaabae;
+  --border: #363c42;
+  --navy: #0c1d29;
+  --primary: #8cceff;
+  --primary-hover: #cae6ff;
+  --primary-foreground: #00344e;
+  --primary-soft: #004b6f;
+  --primary-tint: #001e2f;
+  --secondary: #b7c9d9;
+  --secondary-soft: #2d3d4a;
+  --verified: #7fd6a4;
+  --verified-soft: #12341f;
+  --estimated: #ffcf70;
+  --estimated-soft: #3a2a00;
+  --unverified-tint: #2a2410;
+  --error: #ffb4ab;
+  --error-soft: #690005;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-foreground: var(--foreground);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-navy: var(--navy);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-soft: var(--primary-soft);
+  --color-primary-tint: var(--primary-tint);
+  --color-secondary: var(--secondary);
+  --color-secondary-soft: var(--secondary-soft);
+  --color-verified: var(--verified);
+  --color-verified-soft: var(--verified-soft);
+  --color-estimated: var(--estimated);
+  --color-estimated-soft: var(--estimated-soft);
+  --color-unverified-tint: var(--unverified-tint);
+  --color-error: var(--error);
+  --color-error-soft: var(--error-soft);
+  --radius-lg: var(--radius);
+  --font-sans: var(--font-inter);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Prices line up vertically in tables */
+.tabular {
+  font-variant-numeric: tabular-nums lining-nums;
+}
