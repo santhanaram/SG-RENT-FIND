@@ -1,15 +1,8 @@
-import { Building2, LogOut, Search } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Building2, Search } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { StatusBadge } from "@/components/ui/status-badge";
-import { createClient } from "@/lib/supabase/server";
 
-export default async function Home() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
+export default function Home() {
   return (
     <div className="min-h-dvh">
       <header className="bg-navy text-white">
@@ -18,13 +11,6 @@ export default async function Home() {
             <Building2 className="size-5" aria-hidden />
             <span className="font-semibold">SG-Rent-Find</span>
           </div>
-          <form action="/auth/signout" method="post" className="flex items-center gap-3">
-            <span className="hidden text-sm text-white/70 sm:inline">{user?.email}</span>
-            <Button variant="ghost" size="sm" className="text-white hover:bg-white/10">
-              <LogOut className="size-4" aria-hidden />
-              Sign out
-            </Button>
-          </form>
         </div>
       </header>
 
